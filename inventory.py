@@ -24,7 +24,7 @@ class Inventory:
         print(f"Available Copies: {self.books[isbn].available_copies}")
         print("=================================================================\n")
 
-    def issue_book(self, book_isbn, user_id):
+    def issue_book(self, book_isbn):
         if book_isbn not in self.books or self.books[book_isbn].available_copies < 1:
             print("Sorry! book is not available right now")
             return False
@@ -32,5 +32,6 @@ class Inventory:
         self.books[book_isbn].available_copies -= 1
         return True
 
-
+    def get_book_by_isbn(self, book_isbn):
+        return self.all_books.get(book_isbn)
         

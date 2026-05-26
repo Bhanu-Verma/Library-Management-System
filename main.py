@@ -11,5 +11,13 @@ def main():
     book_hcv = Book("ISOO1", "Concepts of Physics", "H.C. Verma", BookCategory.SCIENCE)
     library.add_book(book_hcv, 10)
 
+    library.issue_book("ISOO1", user_bhanu.user_id)
+    library.issue_book("ISOO1", user_bhanu.user_id)
+    
+    user_nitin = User("Nitin Verma")
+    library.issue_book("ISOO1", user_nitin.user_id)
+
+    library.issue_book("ISOO2", user_bhanu.user_id)
+
 if __name__ == "__main__":
     main()
