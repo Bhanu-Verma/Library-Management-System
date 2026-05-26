@@ -2,7 +2,7 @@ from inventory import *
 from book import *
 import datetime
 
-class BorowRecord:
+class BorrowRecord:
     def __init__(self, user_id, book_isbn, issue_date, return_date):
         self.user_id = user_id
         self.book_isbn = book_isbn
@@ -83,7 +83,7 @@ class Library:
             return_date = self.get_return_date(book, issue_date)
 
             self.borrow_records[user_id].append(
-                BorowRecord(user_id, 
+                BorrowRecord(user_id, 
                             book_isbn, 
                             issue_date,
                             return_date
