@@ -13,11 +13,14 @@ def main():
 
     library.issue_book("ISOO1", user_bhanu.user_id)
     library.issue_book("ISOO1", user_bhanu.user_id)
-    
+
     user_nitin = User("Nitin Verma")
     library.issue_book("ISOO1", user_nitin.user_id)
 
     library.issue_book("ISOO2", user_bhanu.user_id)
 
+    library.return_book("ISOO1", user_nitin.user_id)
+    library.return_book("ISOO2", user_bhanu.user_id)
+    library.return_book("ISOO1", user_bhanu.user_id)
 if __name__ == "__main__":
     main()

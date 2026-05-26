@@ -31,6 +31,12 @@ class Inventory:
     
         self.books[book_isbn].available_copies -= 1
         return True
+    
+    def update_book_return(self, book_isbn):
+        if book_isbn not in self.books:
+            return
+        
+        self.books[book_isbn].available_copies += 1
 
     def get_book_by_isbn(self, book_isbn):
         return self.all_books.get(book_isbn)

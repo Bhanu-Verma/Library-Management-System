@@ -11,6 +11,8 @@ class BorowRecord:
 
 
 class Library:
+    PER_DAY_FINE = 1
+
     def __init__(self, name):
         self.name = name
         self.inventory = Inventory()
@@ -21,6 +23,12 @@ class Library:
     def register_user(self, user):
         self.users[user.user_id] = user
         print(f"'{user.name}' is now registerd in '{self.name}'")
+
+    def user_registered(self, user_id):
+        return user_id in self.users
+    
+    def book_registered(self, book_isbn):
+        return self.inventory.get_book_by_isbn(book_isbn) is not None
 
     def add_book(self, book, quantity):
         self.inventory.add_book(book, quantity)
@@ -49,7 +57,7 @@ class Library:
 
     def issue_book(self, book_isbn, user_id):
         # Ensure that user is registered
-        if user_id not in self.users:
+        if not self.user_registered(user_id):
             print(f"User Id: '{user_id}' is not registered in {self.name}")
             return
         
@@ -86,3 +94,45 @@ class Library:
             print(f"Issue Date: {issue_date.strftime('%A, %d %B %G')}")
             print(f"Return Date: {return_date.strftime('%A, %d %B %G')}")
             print("=================================================================\n")
+
+
+
+    def return_book(self, book_isbn, user_id):
+        if not self.user_registered(user_id):
+            print(f"User Id: '{user_id}' is not registered in {self.name}")
+            return 
+        
+        if not self.book_registered(book_isbn):
+            print(f"Book ISBN: '{book_isbn}' is not registered in {self.name}")
+            return
+
+        user = self.users[user_id]
+        book = self.inventory.get_book_by_isbn(book_isbn)
+        
+        if not self.has_issued(user_id, book_isbn):
+            print(f"User: '{user.name}' hasn't issued the book '{book.title}'.")
+            return
+    
+        print("\n=================================================================")
+
+        borrow_record = None
+        for record in self.borrow_records[user_id]:
+            if record.book_isbn == book_isbn:
+                borrow_record = record
+                break
+        
+        return_date = borrow_record.return_date
+        current_date = datetime.datetime.now()
+        if return_date.date() < current_date.date():
+            fine = (current_date.date() - return_date.date()) * Library.PER_DAY_FINE
+            fine_submitted = input(f"Fine of Rs.{fine} submitted?(yes/no): ")
+            if fine_submitted == "no":
+                print("Please submit the fine first")
+                print("=================================================================\n")
+                return
+
+        self.borrow_records[user_id].remove(borrow_record)
+        self.inventory.update_book_return(book_isbn)
+
+        print(f"Book '{book.title}' successfully returned by '{user.name}'")
+        print("=================================================================\n")
