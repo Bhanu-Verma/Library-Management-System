@@ -136,3 +136,11 @@ class Library:
 
         print(f"Book '{book.title}' successfully returned by '{user.name}'")
         print("=================================================================\n")
+
+    def search_book(self, search_type, search_term):
+        if search_type == "Category":
+            return self.inventory.search_by_category(search_term)
+        if search_type == "Author":
+            return self.inventory.search_by_author(search_term)
+        if search_type == "Title":
+            return self.inventory.search_by_title(search_term)

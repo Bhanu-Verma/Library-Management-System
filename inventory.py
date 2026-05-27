@@ -40,4 +40,19 @@ class Inventory:
 
     def get_book_by_isbn(self, book_isbn):
         return self.all_books.get(book_isbn)
+    
+    def search_by_func(self, func):
+        retrieved_books = []
+        for (_, book) in self.all_books.items():
+            if func(book):
+                retrieved_books.append(book)
+        return retrieved_books
         
+    def search_by_category(self, category):
+        return self.search_by_func(lambda x : x.category==category)
+    
+    def search_by_author(self, author):
+        return self.search_by_func(lambda x: x.author==author)
+    
+    def search_by_title(self, title):
+        return self.search_by_func(lambda x: x.title==title)
