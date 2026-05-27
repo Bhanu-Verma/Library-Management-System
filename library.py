@@ -139,13 +139,7 @@ class Library:
 
     def search_book(self, search_type, search_term):
         if search_type == "Category":
-            category = None
-            try:
-                category = BookCategory[search_type]
-            except KeyError:
-                print("Please enter a valid category")
-                return
-            return self.inventory.search_by_category(category)
+            return self.inventory.search_by_category(search_term)
         if search_type == "Author":
             return self.inventory.search_by_author(search_term)
         if search_type == "Title":
