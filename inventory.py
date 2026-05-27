@@ -18,11 +18,9 @@ class Inventory:
         
         self.books[isbn].total_copies += quantity
         self.books[isbn].available_copies += quantity
-        print("\n=================================================================")
         print(f"'{book.title}' added successfully.")
         print(f"Total Copies: {self.books[isbn].total_copies}")
         print(f"Available Copies: {self.books[isbn].available_copies}")
-        print("=================================================================\n")
 
     def issue_book(self, book_isbn):
         if book_isbn not in self.books or self.books[book_isbn].available_copies < 1:
