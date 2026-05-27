@@ -89,11 +89,9 @@ class Library:
                             return_date
                         )
             )
-            print("\n=================================================================")
             print(f"Book '{book.title}' issued successfully to '{user.name}'")
             print(f"Issue Date: {issue_date.strftime('%A, %d %B %G')}")
             print(f"Return Date: {return_date.strftime('%A, %d %B %G')}")
-            print("=================================================================\n")
 
 
 
@@ -112,8 +110,6 @@ class Library:
         if not self.has_issued(user_id, book_isbn):
             print(f"User: '{user.name}' hasn't issued the book '{book.title}'.")
             return
-    
-        print("\n=================================================================")
 
         borrow_record = None
         for record in self.borrow_records[user_id]:
@@ -128,14 +124,12 @@ class Library:
             fine_submitted = input(f"Fine of Rs.{fine} submitted?(yes/no): ")
             if fine_submitted == "no":
                 print("Please submit the fine first")
-                print("=================================================================\n")
                 return
 
         self.borrow_records[user_id].remove(borrow_record)
         self.inventory.update_book_return(book_isbn)
 
         print(f"Book '{book.title}' successfully returned by '{user.name}'")
-        print("=================================================================\n")
 
     def search_book(self, search_type, search_term):
         if search_type == "Category":

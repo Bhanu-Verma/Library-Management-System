@@ -14,3 +14,6 @@ class Book:
         self.title = title
         self.author = author
         self.category = category
+
+    def __str__(self):
+        return f"ISBN: {self.isbn}\nTitle: {self.title}\nAuthor: {self.author}\nCategory: {self.category.name}"
